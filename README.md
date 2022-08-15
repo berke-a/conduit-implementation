@@ -1,11 +1,11 @@
-# How to run on local
+# Conduit implementation with react frontedn.
 
-## Go to project directory
+## How to run on local :
 
-### On terminal execute in order
+### 1) Go to project directory
 
-### `npm i`
+### 2) On terminal execute in order
 
-### `npm start`
+### 3) `npm i`
 
-### After these steps hopefully site will ayaga kalkcak.
+### 4) `npm start`
