@@ -1,4 +1,4 @@
-# Conduit implementation with react frontedn.
+# Conduit implementation with react front-end.
 
 ## How to run on local :
 
