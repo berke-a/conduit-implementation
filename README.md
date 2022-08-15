@@ -1,11 +1,19 @@
-# How to run on local
+# Conduit implementation with react front-end.
 
-## Go to project directory
+## About:
 
-### On terminal execute in order
+### Created a store with react-redux for login.
 
-### `npm i`
+### NavBar and Feed components were used in multiple pages.
 
-### `npm start`
+### TailwindCss is used.
 
-### After these steps hopefully site will ayaga kalkcak.
+## How to run on local :
+
+### 1) Go to project directory
+
+### 2) On terminal execute in order
+
+### 3) `npm i`
+
+### 4) `npm start`
