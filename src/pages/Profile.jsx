@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectors, effects } from "../store";
@@ -8,12 +8,13 @@ import { useSnackbar } from "notistack";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosSettings } from "react-icons/io";
 import { AiOutlinePlus } from "react-icons/ai";
-import Feed from "./Feed";
+import Feed from "../components/Feed";
+import Footer from "../components/Footer";
 
 const Porfile = () => {
 	const params = useParams();
 	const loginInfo = useSelector(selectors.getLoginInfo);
-	const profileInfo = useSelector(selectors.getResponse).user;
+	const profileInfo = useSelector(selectors.getProfileInfo).user;
 
 	const [selectedPage, setSelectedPage] = useState(2);
 	/**
@@ -137,7 +138,7 @@ const Porfile = () => {
 					</div>
 					<Link
 						to="/settings"
-						className="justify-self-end md:mr-24 mr-4 border rounded-md border-gray-400 text-gray-400 text-sm px-1 ml-8 text-white hover:cursor-pointer hover:bg-gray-400 hover:border-gray-400 hover:text-white"
+						className="justify-self-end md:mr-24 mr-4 border rounded-md border-gray-400 text-gray-400 text-sm px-1 ml-8 hover:text-white hover:cursor-pointer hover:bg-gray-400 hover:border-gray-400 hover:text-white"
 					>
 						<IoIosSettings className="pb-1 inline" />
 						Edit Profile Settings
@@ -194,6 +195,7 @@ const Porfile = () => {
 						/>
 					}
 				</div>
+				<Footer />
 			</>
 		);
 	} else {
@@ -268,6 +270,7 @@ const Porfile = () => {
 							/>
 						}
 					</div>
+					<Footer />
 				</>
 			);
 		}

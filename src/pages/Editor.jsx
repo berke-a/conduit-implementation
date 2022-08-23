@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useValidatableForm } from "react-validatable-form";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 import Zoom from "../../node_modules/@mui/material/Zoom/Zoom";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
@@ -76,7 +77,7 @@ const Editor = () => {
 	});
 
 	const loginInfo = useSelector(selectors.getLoginInfo);
-	const profileInfo = useSelector(selectors.getResponse).user;
+	const profileInfo = useSelector(selectors.getProfileInfo).user;
 	const params = useParams();
 
 	const navigate = useNavigate();
@@ -95,11 +96,10 @@ const Editor = () => {
 		}
 		return true;
 	};
-    
 
-    /**
-     * These two functions are for the tags input.
-     */
+	/**
+	 * These two functions are for the tags input.
+	 */
 	const handleAddElement = () => {
 		const newTag = [...formData.tags];
 		newTag.push("");
@@ -363,6 +363,7 @@ const Editor = () => {
 						Publish Article
 					</button>
 				</div>
+				<Footer />
 			</>
 		);
 	} else {
@@ -426,6 +427,7 @@ const Editor = () => {
 							Update Article
 						</button>
 					</div>
+					<Footer />
 				</>
 			);
 		}

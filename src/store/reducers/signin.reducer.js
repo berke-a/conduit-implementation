@@ -25,7 +25,7 @@ function signinReducer(state = initialState, action) {
 			return {
 				...state,
 				isLoggedIn: false,
-				error: action.payload,
+				response: action.payload,
 			};
 		default:
 			return state;
@@ -33,7 +33,7 @@ function signinReducer(state = initialState, action) {
 }
 
 export const getSigninState = (state) => state.signin;
-export const getResponse = (signinState) => signinState.response;
+export const getProfileInfo = (signinState) => signinState.response;
 export const getLoginInfo = (signinState) => signinState.isLoggedIn;
 export const setProfileInfo = (signinState, updatedProfile) =>
 	(signinState.response = updatedProfile);

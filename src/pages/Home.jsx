@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import Feed from "./Feed";
+import Navbar from "../components/Navbar";
+import Feed from "../components/Feed";
+import Footer from "../components/Footer";
 import { selectors } from "../store";
 import { useSelector } from "react-redux";
 
 const Home = () => {
-
 	const loginInfo = useSelector(selectors.getLoginInfo);
-	const profileInfo = useSelector(selectors.getResponse).user;
-    // Getting login informations from store.
+	const profileInfo = useSelector(selectors.getProfileInfo).user;
+	// Getting login informations from store.
 
 	const [selectedPage, setSelectedPage] = React.useState(0);
 	/**
@@ -18,11 +18,11 @@ const Home = () => {
 
 	const [tags, setTags] = useState([]);
 	const [selectedTag, setSelectedTag] = useState(null);
-    /**
-     * selectedTag = null => no tag selected
-     * selectedTag = "tag" => tag selected
-     * If there is a selectedTag selectedPage will be ignored
-     * */
+	/**
+	 * selectedTag = null => no tag selected
+	 * selectedTag = "tag" => tag selected
+	 * If there is a selectedTag selectedPage will be ignored
+	 * */
 
 	const getTags = async () => {
 		const requestOptions = {
@@ -152,6 +152,7 @@ const Home = () => {
 				<div>
 					{<Feed selectedPage={1} pageNum={0} selectedTag={selectedTag} />}
 				</div>
+				<Footer />
 			</>
 		);
 	} else {
@@ -276,9 +277,10 @@ const Home = () => {
 						/>
 					}
 				</div>
+				<Footer />
 			</>
 		);
 	}
-};;;;;;;;;;;;;;;
+};
 
 export default Home;

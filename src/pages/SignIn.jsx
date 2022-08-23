@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useValidatableForm } from "react-validatable-form";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import Zoom from "../../node_modules/@mui/material/Zoom/Zoom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectors, effects } from "../store";
+import { useEffect } from "react";
+import Footer from "../components/Footer";
 
 const initialFormData = {};
 const rules = [
@@ -34,8 +36,38 @@ const SignIn = () => {
 
 	const dispatch = useDispatch();
 
-	const response = useSelector(selectors.getResponse);
+	const response = useSelector(selectors.getProfileInfo);
 	const loginInfo = useSelector(selectors.getLoginInfo);
+
+	function isEmpty(obj) {
+		for (var prop in obj) {
+			if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+				return false;
+			}
+		}
+
+		return JSON.stringify(obj) === JSON.stringify({});
+	}
+	useEffect(() => {
+		console.log("in useEffect", isEmpty(response));
+		if (isEmpty(response)) {
+			return;
+		}
+		if (response.errors !== undefined) {
+			dispatch(effects.signin("logout"));
+			for (var key in response.errors) {
+				for (var i = 0; i < response.errors[key].length; i++) {
+					enqueueSnackbar(key + " " + response.errors[key][i], {
+						variant: "error",
+						autoHideDuration: 3000,
+						TransitionComponent: Zoom,
+					});
+				}
+			}
+		} else {
+			navigate("/");
+		}
+	}, [response]);
 
 	const handleSubmit = () => {
 		setFormIsSubmitted();
@@ -52,22 +84,13 @@ const SignIn = () => {
 
 		//Gets the data from the form and dispatches the action to the reducer
 		dispatch(effects.signin(data));
-
-		if (response.errors) {
-			for (var key in response.errors) {
-				for (var i = 0; i < response.errors[key].length; i++) {
-					enqueueSnackbar(key + " " + response.errors[key][i], {
-						variant: "error",
-						autoHideDuration: 3000,
-						TransitionComponent: Zoom,
-					});
-				}
-			}
-		} else {
-			localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
-			localStorage.setItem("profileInfo", JSON.stringify(response.user));
-			navigate("/");
-		}
+		console.log("before check response", response);
+		console.log(
+			"?undefined: ",
+			response.errors === undefined,
+			" ?null: ",
+			response.errors === null
+		);
 	};
 
 	return (
@@ -120,6 +143,7 @@ const SignIn = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 };

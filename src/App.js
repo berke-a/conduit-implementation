@@ -1,11 +1,12 @@
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
-import Settings from "./components/Settings";
-import Profile from "./components/Profile";
-import Editor from "./components/Editor";
-import Article from "./components/Article";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
+import Editor from "./pages/Editor";
+import Article from "./pages/Article";
+import Reports from "./pages/Reports";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 				<Route path="/editor" element={<Editor />}></Route>
 				<Route path="/editor/:articleSlug" element={<Editor />}></Route>
 				<Route path="/article/:articleSlug" element={<Article />}></Route>
+				<Route path="/reports" element={<Reports />}></Route>
 			</Routes>
 		</div>
 	);

@@ -2,9 +2,11 @@ import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 
 import signinReducer, * as fromSigninReducer from "./signin.reducer";
+import signupReducer, * as fromSignupReducer from "./signup.reducer";
 
 const reducers = combineReducers({
 	signin: signinReducer,
+	signup: signupReducer,
 });
 
 const rootReducer = (state, action) => {
@@ -16,4 +18,4 @@ const rootReducer = (state, action) => {
 	return reducers(state, action);
 };
 
-export { reducers, fromSigninReducer, rootReducer };
+export { reducers, fromSigninReducer, fromSignupReducer, rootReducer };

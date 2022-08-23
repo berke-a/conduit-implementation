@@ -6,9 +6,9 @@ export const getSigninState = createSelector(
 	(state) => state
 );
 
-export const getResponse = createSelector(
+export const getProfileInfo = createSelector(
 	getSigninState,
-	fromSigninReducer.getResponse
+	fromSigninReducer.getProfileInfo
 );
 
 export const getLoginInfo = createSelector(

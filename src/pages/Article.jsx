@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -14,12 +14,13 @@ import {
 	AiFillDelete,
 	AiFillEdit,
 } from "react-icons/ai";
+import Footer from "../components/Footer";
 
 const Article = () => {
 	const params = useParams();
 
 	const loginInfo = useSelector(selectors.getLoginInfo);
-	const profileInfo = useSelector(selectors.getResponse).user;
+	const profileInfo = useSelector(selectors.getProfileInfo).user;
 
 	const { enqueueSnackbar } = useSnackbar();
 
@@ -550,6 +551,7 @@ const Article = () => {
 						})}
 					</div>
 				</div>
+				<Footer />
 			</>
 		);
 	} else {
@@ -562,6 +564,6 @@ const Article = () => {
 			<div className="h-56 w-full bg-article text-white">LOADING</div>
 		</>;
 	}
-};;
+};
 
 export default Article;

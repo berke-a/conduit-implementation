@@ -1,10 +1,14 @@
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useValidatableForm } from "react-validatable-form";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { selectors, effects } from "../store";
 import Zoom from "../../node_modules/@mui/material/Zoom/Zoom";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import Footer from "../components/Footer";
 
 const initialFormData = {};
 const rules = [
@@ -47,8 +51,6 @@ const rules = [
 ];
 
 const SignUp = () => {
-	const { enqueueSnackbar } = useSnackbar();
-	const navigate = useNavigate();
 	const {
 		isValid,
 		setPathValue,
@@ -62,43 +64,62 @@ const SignUp = () => {
 		hideBeforeSubmit: true,
 	});
 
-	const signupPOST = async () => {
-		const requestOptions = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				user: {
-					username: getValue("username"),
-					email: getValue("email"),
-					password: getValue("password"),
-				},
-			}),
-		};
-		return await fetch("https://api.realworld.io/api/users", requestOptions)
-			.then((response) => response.json())
-			.then((response) => response);
-	};
+	const response = useSelector(selectors.getSignupResponse);
+	const dispatch = useDispatch();
+	const { enqueueSnackbar } = useSnackbar();
+	const navigate = useNavigate();
+
+	function isEmpty(obj) {
+		for (var prop in obj) {
+			if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+				return false;
+			}
+		}
+
+		return JSON.stringify(obj) === JSON.stringify({});
+	}
+
+	useEffect(() => {
+		if (isEmpty(response)) {
+			return;
+		}
+		if (response.errors !== undefined) {
+			dispatch(effects.signin("logout"));
+			for (var key in response.errors) {
+				for (var i = 0; i < response.errors[key].length; i++) {
+					enqueueSnackbar(key + " " + response.errors[key][i], {
+						variant: "error",
+						autoHideDuration: 3000,
+						TransitionComponent: Zoom,
+					});
+				}
+			}
+		} else {
+			enqueueSnackbar("Registered succesfully", {
+				variant: "success",
+				autoHideDuration: 1500,
+				TransitionComponent: Zoom,
+			});
+			setTimeout(() => {
+				navigate("/signin");
+			}, 1500);
+		}
+	}, [response]);
 
 	const handleSubmit = () => {
 		setFormIsSubmitted();
 		if (!isValid) {
 			return;
 		}
-		signupPOST().then((response) => {
-			if (response.errors) {
-				for (var key in response.errors) {
-					for (var i = 0; i < response.errors[key].length; i++) {
-						enqueueSnackbar(key + " " + response.errors[key][i], {
-							variant: "error",
-							autoHideDuration: 3000,
-							TransitionComponent: Zoom,
-						});
-					}
-				}
-			} else {
-				navigate("/signin");
-			}
+		const data = JSON.stringify({
+			user: {
+				username: getValue("username"),
+				email: getValue("email"),
+				password: getValue("password"),
+			},
 		});
+
+		dispatch(effects.signup(data));
 	};
 
 	return (
@@ -168,6 +189,7 @@ const SignUp = () => {
 					</div>
 				</div>
 			</div>
+			<Footer />
 		</>
 	);
 };

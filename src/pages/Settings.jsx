@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useValidatableForm } from "react-validatable-form";
 import TextField from "@mui/material/TextField";
 import { useEffect } from "react";
@@ -7,6 +7,7 @@ import { selectors, effects } from "../store";
 import Zoom from "../../node_modules/@mui/material/Zoom/Zoom";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const initialFormData = {};
 const rules = [
@@ -75,7 +76,7 @@ const Settings = () => {
 	});
 
 	const loginInfo = useSelector(selectors.getLoginInfo);
-	const profileInfo = useSelector(selectors.getResponse).user;
+	const profileInfo = useSelector(selectors.getProfileInfo).user;
 
 	const navigate = useNavigate();
 	const { enqueueSnackbar } = useSnackbar();
@@ -244,6 +245,7 @@ const Settings = () => {
 					Logout
 				</button>
 			</div>
+			<Footer />
 		</>
 	);
 };

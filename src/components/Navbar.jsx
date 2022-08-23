@@ -10,8 +10,10 @@ import { selectors } from "../store";
 
 const Navbar = ({ pageName }) => {
 	const isLoggedIn = useSelector(selectors.getLoginInfo);
-	const profileInfo = useSelector(selectors.getResponse).user;
-
+	let profileInfo = useSelector(selectors.getProfileInfo);
+	if (isLoggedIn) {
+		profileInfo = profileInfo.user;
+	}
 	if (!isLoggedIn) {
 		return (
 			<nav className="h-20 w-full font-sans pr-5 text-xl">

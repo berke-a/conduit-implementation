@@ -15,7 +15,7 @@ selectedPage=3 -> Favorited Articles
  */
 
 const Feed = ({ selectedPage, pageNum, userName, selectedTag = null }) => {
-	const profileInfo = useSelector(selectors.getResponse).user;
+	const profileInfo = useSelector(selectors.getProfileInfo).user;
 	const loginInfo = useSelector(selectors.getLoginInfo);
 	const { enqueueSnackbar } = useSnackbar();
 	const navigate = useNavigate();
@@ -224,8 +224,11 @@ const Feed = ({ selectedPage, pageNum, userName, selectedTag = null }) => {
 	return articleList.map((article, index) => {
 		if (!selectedTag || article.tagList.some((tag) => tag === selectedTag)) {
 			return (
-				<div className="md:ml-16 ml-4 md:w-8/12 lg:w-8/12 sm:w-8/12 w-11/12 md:pr-12 lg:pr-12 mr-10">
-					<div className="border-b pt-2" key={article.slug}>
+				<div
+					key={article.slug}
+					className="md:ml-16 ml-4 md:w-8/12 lg:w-8/12 sm:w-8/12 w-11/12 md:pr-12 lg:pr-12 mr-10"
+				>
+					<div className="border-b pt-2">
 						<div className="grid grid-cols-5">
 							<div className="self-center">
 								<div className="flex flex-row items-center">
