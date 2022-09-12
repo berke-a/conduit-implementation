@@ -8,4 +8,4 @@
 
 ### `npm start`
 
-### After these steps hopefully site will ayaga kalkcak.
+### After these steps hopefully site will hopefully run.
