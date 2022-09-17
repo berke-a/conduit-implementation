@@ -2,10 +2,10 @@
 
 ## Go to project directory
 
-### On terminal execute in order
+### On terminal execute
 
-### `npm i`
+### 1) `npm i`
 
-### `npm start`
+### 2) `npm start`
 
-### After these steps hopefully site will hopefully run.
+### After these steps site will hopefully run.
