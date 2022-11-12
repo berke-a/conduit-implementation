@@ -7,4 +7,4 @@ First you need to clone the project to your local computer. After cloning, open 
 </br>
 
 ##
-Currently working on writing the back end part of the site. Practicing with NodeJS and mongo.
+Currently working on writing the back end. Practicing with NodeJS and mongo.
